@@ -1,0 +1,55 @@
+<!-- zoom_meeting.html -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zoom Clone</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <style>
+        /* Custom CSS for button alignment */
+        #control-buttons {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .control-button {
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div id="control-buttons" class="col-md-12">
+                <!-- Camera and Audio Control Buttons -->
+                <div>
+                    <form id="toggle-camera-form" action="{% url 'detect_eyes' %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-primary control-button">Eyes Detection</button>
+                    </form>
+                    <form id="toggle-camera-form" action="{% url 'detect_face' %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-primary control-button">Face Detection</button>
+                    </form>
+                    <form id="toggle-camera-form" action="{% url 'voice_detection' %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-primary control-button">Voice Detection</button>
+                    </form>
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@zoomus/websdk@1.9.1/dist/lib/index.min.js"></script>
+    <script src="{% static 'js/scripts.js' %}"></script>
+    <!-- Add OpenCV.js library -->
+    <script src="https://docs.opencv.org/4.5.5/opencv.js"></script>
+</body>
+</html>

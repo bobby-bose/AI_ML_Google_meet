@@ -1,0 +1,62 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schedule Meeting - Zoom Conference App</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+<!-- Navigation Bar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Zoom App</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'index' %}">Home</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Schedule Meeting <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Join Meeting</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Main Content -->
+<div class="container">
+    <h1>Schedule a Meeting</h1>
+    <!-- Add form for scheduling meeting -->
+    <form>
+        <div class="form-group">
+            <label for="meetingTitle">Meeting Title</label>
+            <input type="text" class="form-control" id="meetingTitle" placeholder="Enter meeting title">
+        </div>
+        <div class="form-group">
+            <label for="meetingDate">Meeting Date</label>
+            <input type="date" class="form-control" id="meetingDate">
+        </div>
+        <div class="form-group">
+            <label for="meetingTime">Meeting Time</label>
+            <input type="time" class="form-control" id="meetingTime">
+        </div>
+        <button type="submit" class="btn btn-primary">Schedule Meeting</button>
+    </form>
+</div>
+
+<!-- Bootstrap JS and jQuery -->
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+</body>
+</html>

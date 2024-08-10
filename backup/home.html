@@ -1,0 +1,128 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zoom Conference App</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+<!-- Navigation Bar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Zoom App</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'schedule_meeting' %}">Schedule Meeting</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Join Meeting</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Main Content -->
+<div class="container">
+    <h1>Welcome to Zoom Conference App</h1>
+    <div class="video-container">
+        <div class="video-controls">
+            <button class="btn btn-primary mic-on">Mic On</button>
+            <button class="btn btn-primary camera-on">Camera On</button>
+        </div>
+
+    </div>
+</div>
+
+<!-- Bootstrap JS and jQuery -->
+<!-- Load jQuery from a CDN -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Load Bootstrap JS from a CDN -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    // jQuery code to handle button clicks
+    $(document).ready(function() {
+        // Function to retrieve CSRF token from cookies
+        function getCSRFToken() {
+            var cookieName = 'csrftoken';
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = cookies[i].trim();
+                    if (cookie.substring(0, cookieName.length + 1) === (cookieName + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(cookieName.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+        // Mic On button click
+        $('.mic-on').click(function() {
+            // Alert to confirm the button click
+            alert('Mic On button clicked');
+
+            // Send a request to the server to turn on the microphone
+            $.ajax({
+                url: '/home/',  // URL of the endpoint on the server
+                method: 'POST',  // HTTP method
+                headers: { "X-CSRFToken": getCSRFToken() },  // CSRF token
+                data: { microphone: true },  // Data to send in the request
+                success: function(response) {
+                    // Success callback function
+                    console.log('Microphone state sent to backend');
+                    // You can optionally do something with the response from the server here
+                },
+                error: function(xhr, status, error) {
+                    // Error callback function
+                    console.error('Error sending microphone state to backend');
+                    // You can optionally handle errors here
+                }
+            });
+        });
+
+        // Camera On button click
+        $('.camera-on').click(function() {
+            // Alert to confirm the button click
+            alert('Camera On button clicked');
+
+            // Send a request to the server to turn on the camera
+            $.ajax({
+                url: '/camera/',  // URL of the endpoint on the server
+                method: 'POST',  // HTTP method
+                headers: { "X-CSRFToken": getCSRFToken() },  // CSRF token
+                data: { camera: true },  // Data to send in the request
+                success: function(response) {
+                    // Success callback function
+                    console.log('Camera state sent to backend');
+                    // You can optionally do something with the response from the server here
+                },
+                error: function(xhr, status, error) {
+                    // Error callback function
+                    console.error('Error sending camera state to backend');
+                    // You can optionally handle errors here
+                }
+            });
+        });
+    });
+</script>
+
+
+</body>
+</html>
